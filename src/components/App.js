@@ -5,6 +5,7 @@ import Loader from "./Loader";
 import Error from "./Error";
 import StartScreen from "./StartScreen";
 import Question from "./Question";
+import NextButton from "./NextButton";
 const initialState = {
   questions: [],
   status: "loading",
@@ -30,6 +31,8 @@ const reducer = (state, action) => {
             ? state.points + question.points
             : state.points,
       };
+    case "NextQuestion":
+      return { ...state, index: state.index + 1, answer: null };
 
     default:
       throw new Error("Unhandled action");
@@ -62,6 +65,7 @@ export default function App() {
             answer={answer}
           />
         )}
+        {answer && <NextButton dispatch={dispatch} />}
       </Main>
     </div>
   );
